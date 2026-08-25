@@ -13,10 +13,28 @@ import lombok.Setter;
 public class PartnerGet {
     @JsonProperty("name")
     private String name;
-    @JsonProperty("transport_names")
-    private String[] transportNames;
+    @JsonProperty("transports")
+    private PartnerTransport[] transports;
     @JsonProperty("status")
     private int status;
     @JsonProperty("prepaid")
     private boolean prepaid;
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("[name=").append(name).append(";")
+                .append("status=").append(status).append(";")
+                .append("prepaid=").append(prepaid).append(";");
+
+        builder.append("transports:[");
+        for(PartnerTransport transport:transports){
+            builder.append("id=").append(transport.getId()).append(";");
+        }
+
+        builder.append("]]");
+
+        return builder.toString();
+    }
 }

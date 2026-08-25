@@ -31,15 +31,20 @@ public class JsonContractWorker<T> {
     public static <T> void assertContract(T actualContract, T expectedContract) {
         assertThat(actualContract)
                 .usingRecursiveComparison()
-                .isEqualTo(expectedContract);
+                .isEqualTo(expectedContract)
+                .withFailMessage("""
+                        Ошибка эквивалентности:
+                        Ожидаемый результат: %s
+                        Фактический результат: %s
+                        """.formatted(actualContract, expectedContract));
     }
 
     /**
      * Сравнивает контрактные модели, исключая поля по regex-путям.
      * Используется для контрактов, где часть служебных полей проверяется отдельными assertions.
      *
-     * @param actualContract   фактическая контрактная модель
-     * @param expectedContract ожидаемая контрактная модель
+     * @param actualContract               фактическая контрактная модель
+     * @param expectedContract             ожидаемая контрактная модель
      * @param ignoredFieldsMatchingRegexes regex-пути полей, которые нужно исключить из сравнения
      */
     public static <T> void assertContract(T actualContract, T expectedContract, String... ignoredFieldsMatchingRegexes) {
@@ -81,7 +86,7 @@ public class JsonContractWorker<T> {
      * @param node массив JsonNode (или единичный объект)
      * @param id   id искомого элемента в массиве
      * @throws JsonContractException если node — массив, но элемент с таким id не найден,
-     *                                либо если маппинг не удался
+     *                               либо если маппинг не удался
      */
     public T getContractFromJsonArray(JsonNode node, int id) {
         if (jsonWorker.isArray(node)) {
@@ -96,18 +101,18 @@ public class JsonContractWorker<T> {
         return getContractFromJson(node);
     }
 
-    public List<T> getContractArrayFromJsonArray(JsonNode arrayNode){
+    public List<T> getContractArrayFromJsonArray(JsonNode arrayNode) {
         List<T> objectList = new ArrayList<>();
 
         arrayNode = arrayNode.elements().next();
-        if(jsonWorker.isArray(arrayNode)){
-            for(JsonNode node:arrayNode){
+        if (jsonWorker.isArray(arrayNode)) {
+            for (JsonNode node : arrayNode) {
                 objectList.add(getContractFromJson(node));
             }
             return objectList;
         }
 
         throw new JsonContractException(
-                "Не удалось конвертировать массив JsonNode в коллекцию контрактов "+targetContract.getSimpleName());
+                "Не удалось конвертировать массив JsonNode в коллекцию контрактов " + targetContract.getSimpleName());
     }
 }

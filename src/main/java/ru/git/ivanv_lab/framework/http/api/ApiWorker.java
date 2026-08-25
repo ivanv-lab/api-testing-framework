@@ -10,8 +10,6 @@ import ru.git.ivanv_lab.framework.http.api.authenticator.BasicApiAuthenticator;
 import ru.git.ivanv_lab.framework.http.api.authenticator.BearerApiAuthenticator;
 import ru.git.ivanv_lab.framework.http.api.authenticator.IApiAuthenticator;
 
-import java.util.concurrent.Future;
-
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -297,7 +295,7 @@ public class ApiWorker {
 
     public ApiWorker code(int code){
         try{
-            assertEquals(200, response.get().getStatusCode());
+            assertEquals(code, response.get().getStatusCode());
         } catch (AssertionError e){
             throw new RuntimeException("""
                     Ожидаемый статус: %d

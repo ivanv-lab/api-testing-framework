@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import ru.git.ivanv_lab.framework.fabric.general.Transport;
 import ru.git.ivanv_lab.framework.fabric.general.TransportFabric;
 
 @AllArgsConstructor
@@ -32,9 +33,9 @@ public class PartnerTransport {
         private boolean onModeration;
         private boolean templateOnly;
 
-        public Builder withTransport(String transportName){
+        public Builder withTransport(Transport transport){
             final TransportFabric fabric=new TransportFabric();
-            this.id = fabric.getTransportByName(transportName).getId();
+            this.id = fabric.getTransportByName(transport.getTransportName()).getId();
             return this;
         }
 

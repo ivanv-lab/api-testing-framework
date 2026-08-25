@@ -1,5 +1,7 @@
 package ru.git.ivanv_lab.framework.fabric.admin_api.settings;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import io.qameta.allure.Step;
 import ru.git.ivanv_lab.framework.http.api.ApiWorker;
 import ru.git.ivanv_lab.framework.http.api.authenticator.APIs;
 import ru.git.ivanv_lab.framework.http.api.authenticator.AuthContract;
@@ -30,10 +32,18 @@ public class PartnerFabric {
         );
     }
 
+    public List<PartnerListGet> getAllPartnersByFilter(String additionalUrl){
+        return partnerListWorker.getContractArrayFromJsonArray(
+                JsonMapperHolder.convertStringToJNode(
+                        apiWorker.get("/acapi/partners"+additionalUrl).code(200).getResponse().asString()
+                )
+        );
+    }
+
     public PartnerGet getPartnerById(int id) {
         return partnerWorker.getContractFromJson(
                 JsonMapperHolder.convertStringToJNode(
-                        apiWorker.get("/partners/" + id).code(200).getResponse().asString()
+                        apiWorker.get("/acapi/partners/" + id).code(200).getResponse().asString()
                 )
         );
     }
@@ -46,15 +56,21 @@ public class PartnerFabric {
                 .orElseThrow(()->new JsonContractException("Не удалось найти клиента с именем: "+partnerName))
                 .getId();
 
-        return partnerWorker.getContractFromJson(
-                JsonMapperHolder.convertStringToJNode(
-                        apiWorker.get("/partners/"+partnerId).code(200).getResponse().asString()
-                )
+//        return partnerWorker.getContractFromJson(
+//                JsonMapperHolder.convertStringToJNode(
+//                        apiWorker.get("/acapi/partners/"+partnerId).code(200).getResponse().asString()
+//                )
+//        );
+
+        JsonNode json = JsonMapperHolder.convertStringToJNode(
+                apiWorker.get("/acapi/partners/"+partnerId).code(200).getResponse().asString()
         );
+        PartnerGet partnerGet = partnerWorker.getContractFromJson(json);
+        return partnerGet;
     }
 
     public int createPartner(PartnerPost partnerPost) {
-        apiWorker.post("/partners", JsonMapperHolder.convertContractToString(partnerPost))
+        apiWorker.post("/acapi/partners", JsonMapperHolder.convertContractToString(partnerPost))
                 .code(200);
 
         return getAllPartners()
@@ -66,14 +82,14 @@ public class PartnerFabric {
     }
 
     public PartnerGet updatePartnerById(int id, PartnerPut partnerPut) {
-        apiWorker.put("/partners/"+id, JsonMapperHolder.convertContractToString(partnerPut))
+        apiWorker.put("/acapi/partners/"+id, JsonMapperHolder.convertContractToString(partnerPut))
                 .code(200);
 
         return getPartnerByName(partnerPut.getName());
     }
 
     public void deletePartnerById(int id) {
-        apiWorker.delete("/partners/"+id).code(200);
+        apiWorker.delete("/acapi/partners/"+id).code(200);
     }
 
     public void deletePartnerByName(String partnerName) {
@@ -84,6 +100,6 @@ public class PartnerFabric {
                 .orElseThrow(()->new JsonContractException("Не удалось найти клиента с именем: "+partnerName))
                 .getId();
 
-        apiWorker.delete("/partners/"+partnerId).code(200);
+        apiWorker.delete("/acapi/partners/"+partnerId).code(200);
     }
 }

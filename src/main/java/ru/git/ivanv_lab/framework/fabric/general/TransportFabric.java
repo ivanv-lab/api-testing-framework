@@ -20,7 +20,7 @@ public class TransportFabric {
     public List<Transport> getAllTransports() {
         return transportListWorker.getContractArrayFromJsonArray(
                 JsonMapperHolder.convertStringToJNode(
-                        apiWorker.get("/transports").code(200).getResponse().asString()
+                        apiWorker.get("/acapi/transports").code(200).getResponse().asString()
                 )
         );
     }
@@ -28,7 +28,7 @@ public class TransportFabric {
     public Transport getTransportById(int id) {
         return transportListWorker.getContractFromJson(
                 JsonMapperHolder.convertStringToJNode(
-                        apiWorker.get("/transports/" + id).code(200).getResponse().asString()
+                        apiWorker.get("/acapi/transports/" + id).code(200).getResponse().asString()
                 )
         );
     }
