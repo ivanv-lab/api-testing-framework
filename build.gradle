@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+}
+
+group = 'ru.git.ivanv_lab'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Source: https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compileOnly 'org.projectlombok:lombok:1.18.46'
+    annotationProcessor 'org.projectlombok:lombok:1.18.46'
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    // Source: https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+    implementation 'org.junit.jupiter:junit-jupiter-api:6.1.3'
+
+    // Source: https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.22.2'
+    // Source: https://mvnrepository.com/artifact/io.rest-assured/rest-assured
+    implementation 'io.rest-assured:rest-assured:6.0.1'
+    // Source: https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core
+    implementation 'org.hibernate.orm:hibernate-core:7.4.5.Final'
+    // Source: https://mvnrepository.com/artifact/org.assertj/assertj-core
+    implementation 'org.assertj:assertj-core:3.27.7'
+
+    // Source: https://mvnrepository.com/artifact/io.qameta.allure/allure-rest-assured
+    implementation 'io.qameta.allure:allure-rest-assured:2.35.4'
+    // Source: https://mvnrepository.com/artifact/io.qameta.allure/allure-attachments
+    implementation 'io.qameta.allure:allure-attachments:2.35.4'
+    // Source: https://mvnrepository.com/artifact/io.qameta.allure/allure-junit-platform
+    implementation 'io.qameta.allure:allure-junit-platform:2.35.4'
+    // Source: https://mvnrepository.com/artifact/io.qameta.allure/allure-plugin-api
+    implementation 'io.qameta.allure:allure-plugin-api:2.45.0'
+}
+
+test {
+    useJUnitPlatform()
+}
