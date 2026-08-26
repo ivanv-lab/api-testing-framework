@@ -32,7 +32,7 @@ public class AccountGet {
     @JsonProperty("status")
     private int status;
     @JsonProperty("push_statuses")
-    private int pushStatues;
+    private int pushStatuses;
     @JsonProperty("url")
     private String url;
     @JsonProperty("status_report")
