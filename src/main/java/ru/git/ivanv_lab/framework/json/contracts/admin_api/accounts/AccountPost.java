@@ -5,9 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.git.ivanv_lab.framework.fabric.admin_api.settings.PartnerFabric;
-import ru.git.ivanv_lab.framework.fabric.general.Transport;
-import ru.git.ivanv_lab.framework.fabric.general.TransportFabric;
+import ru.git.ivanv_lab.framework.http.api.fabric.admin_api.settings.PartnerFabric;
+import ru.git.ivanv_lab.framework.http.api.fabric.general.Transport;
+import ru.git.ivanv_lab.framework.http.api.fabric.general.TransportFabric;
 import ru.git.ivanv_lab.framework.json.contract_validator.exceptions.JsonContractException;
 
 @AllArgsConstructor

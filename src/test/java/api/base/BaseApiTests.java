@@ -1,5 +1,6 @@
 package api.base;
 
+import ru.git.ivanv_lab.framework.data.PropertiesHandler;
 import ru.git.ivanv_lab.framework.http.api.ApiWorker;
 import ru.git.ivanv_lab.framework.http.api.authenticator.APIs;
 import ru.git.ivanv_lab.framework.http.api.authenticator.AuthContract;
@@ -9,6 +10,6 @@ public class BaseApiTests {
 
     protected final JsonWorker jsonWorker=new JsonWorker();
     protected final ThreadLocal<ApiWorker> adminConsoleApiWorker=ThreadLocal
-            .withInitial(()->new ApiWorker("http://192.168.128.250",
-                    new AuthContract(APIs.ADMIN_CONSOLE_API, "admin@admin.com","Admin")));
+            .withInitial(()->new ApiWorker(PropertiesHandler.baseUrl,
+                    new AuthContract(APIs.ADMIN_CONSOLE_API, PropertiesHandler.adminLogin, PropertiesHandler.adminPassword)));
 }

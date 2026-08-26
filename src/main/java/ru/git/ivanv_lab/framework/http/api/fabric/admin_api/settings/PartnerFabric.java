@@ -1,5 +1,6 @@
-package ru.git.ivanv_lab.framework.fabric.admin_api.settings;
+package ru.git.ivanv_lab.framework.http.api.fabric.admin_api.settings;
 
+import ru.git.ivanv_lab.framework.data.PropertiesHandler;
 import ru.git.ivanv_lab.framework.http.api.ApiWorker;
 import ru.git.ivanv_lab.framework.http.api.authenticator.APIs;
 import ru.git.ivanv_lab.framework.http.api.authenticator.AuthContract;
@@ -19,8 +20,8 @@ public class PartnerFabric {
             = new JsonContractWorker<>(PartnerListGet.class);
     private final JsonContractWorker<PartnerGet> partnerWorker
             = new JsonContractWorker<>(PartnerGet.class);
-    private final ApiWorker apiWorker = new ApiWorker("http://192.168.128.250",
-            new AuthContract(APIs.ADMIN_CONSOLE_API, "admin@admin.com", "Admin"));
+    private final ApiWorker apiWorker = new ApiWorker(PropertiesHandler.baseUrl,
+            new AuthContract(APIs.ADMIN_CONSOLE_API, PropertiesHandler.adminLogin, PropertiesHandler.adminPassword));
 
     public List<PartnerListGet> getAllPartners() {
         return getAllPartnersByFilter(null);

@@ -1,4 +1,4 @@
-package ru.git.ivanv_lab.framework.fabric.general;
+package ru.git.ivanv_lab.framework.http.api.fabric.general;
 
 public enum Transport {
     SMS("sms"),

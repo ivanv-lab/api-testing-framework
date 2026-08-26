@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ru.git.ivanv_lab.framework.fabric.general.Transport;
-import ru.git.ivanv_lab.framework.fabric.general.TransportFabric;
+import ru.git.ivanv_lab.framework.http.api.fabric.general.Transport;
+import ru.git.ivanv_lab.framework.http.api.fabric.general.TransportFabric;
 
 @AllArgsConstructor
 @NoArgsConstructor

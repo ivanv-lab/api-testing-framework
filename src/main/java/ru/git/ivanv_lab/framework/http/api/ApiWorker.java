@@ -144,7 +144,7 @@ public class ApiWorker {
                     .extract().response();
 
             resp.body().print();
-            if (resp.getStatusCode() == 401 || resp.getStatusCode() == 400) {
+            if (resp.getStatusCode() == 401) {
                 resp = postWithRetry(url, body);
             }
 
