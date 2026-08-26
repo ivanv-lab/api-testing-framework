@@ -38,122 +38,106 @@ public class ApiWorker {
     }
 
     public ApiWorker get(String url) {
-        try {
-            log.info("GET {}{}", baseUrl, url);
-            Supplier<Response> requestSupplier = () -> given()
-                    .filter(new AllureRestAssured())
-                    .header("Authorization", authenticator.getAuthorization() + authenticator.getToken(contract.get()))
-                    .contentType(ContentType.JSON)
-                    .get(baseUrl + url)
-                    .then()
-                    .extract().response();
+        log.info("GET {}{}", baseUrl, url);
+        Supplier<Response> requestSupplier = () -> given()
+                .filter(new AllureRestAssured())
+                .header("Authorization", authenticator.getAuthorization() + authenticator.getToken(contract.get()))
+                .contentType(ContentType.JSON)
+                .get(baseUrl + url)
+                .then()
+                .extract().response();
 
-            Response resp = requestSupplier.get();
-            if (resp.getStatusCode() == 401)
-                resp = executeWithRetry(requestSupplier);
+        Response resp = requestSupplier.get();
+        if (resp.getStatusCode() == 401)
+            resp = executeWithRetry(requestSupplier);
 
-            response.set(resp);
-        } catch (RuntimeException e) {
-            throw new RuntimeException(e);
-        }
+        response.set(resp);
 
         return this;
     }
 
     public ApiWorker put(String url, String body) {
-        try {
-            log.info("PUT {}{}\n{}", baseUrl, url, body);
-            Supplier<Response> requestSupplier = () -> given()
-                    .filter(new AllureRestAssured())
-                    .header("Authorization", authenticator.getAuthorization() + authenticator.getToken(contract.get()))
-                    .contentType("application/json")
-                    .and()
-                    .body(body)
-                    .when()
-                    .put(baseUrl + url)
-                    .then()
-                    .extract().response();
+        log.info("PUT {}{}\n{}", baseUrl, url, body);
+        Supplier<Response> requestSupplier = () -> given()
+                .filter(new AllureRestAssured())
+                .header("Authorization", authenticator.getAuthorization() + authenticator.getToken(contract.get()))
+                .contentType("application/json")
+                .and()
+                .body(body)
+                .when()
+                .put(baseUrl + url)
+                .then()
+                .extract().response();
 
-            Response resp = requestSupplier.get();
-            if (resp.getStatusCode() == 401)
-                resp = executeWithRetry(requestSupplier);
+        Response resp = requestSupplier.get();
+        if (resp.getStatusCode() == 401)
+            resp = executeWithRetry(requestSupplier);
 
-            response.set(resp);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        response.set(resp);
+
         return this;
     }
 
     public ApiWorker post(String url, String body) {
-        try {
-            log.info("POST {}{}\n{}", baseUrl, url, body);
-            Supplier<Response> requestSupplier = () -> given()
-                    .filter(new AllureRestAssured())
-                    .header("Authorization", authenticator.getAuthorization() + authenticator.getToken(contract.get()))
-                    .contentType("application/json;charset=utf-8;")
-                    .and()
-                    .body(body)
-                    .when()
-                    .post(baseUrl + url)
-                    .then()
-                    .extract().response();
+        log.info("POST {}{}\n{}", baseUrl, url, body);
+        Supplier<Response> requestSupplier = () -> given()
+                .filter(new AllureRestAssured())
+                .header("Authorization", authenticator.getAuthorization() + authenticator.getToken(contract.get()))
+                .contentType("application/json;charset=utf-8;")
+                .and()
+                .body(body)
+                .when()
+                .post(baseUrl + url)
+                .then()
+                .extract().response();
 
-            Response resp = requestSupplier.get();
-            if (resp.getStatusCode() == 401)
-                resp = executeWithRetry(requestSupplier);
+        Response resp = requestSupplier.get();
+        if (resp.getStatusCode() == 401)
+            resp = executeWithRetry(requestSupplier);
 
-            response.set(resp);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        response.set(resp);
+
         return this;
     }
 
     public ApiWorker patch(String url, String body) {
-        try {
-            log.info("PATCH {}{}\n{}", baseUrl, url, body);
-            Supplier<Response> requestSupplier = () -> given()
-                    .filter(new AllureRestAssured())
-                    .header("Authorization", authenticator.getAuthorization() + authenticator.getToken(contract.get()))
-                    .contentType("application/json")
-                    .and()
-                    .body(body)
-                    .when()
-                    .patch(baseUrl + url)
-                    .then()
-                    .extract().response();
+        log.info("PATCH {}{}\n{}", baseUrl, url, body);
+        Supplier<Response> requestSupplier = () -> given()
+                .filter(new AllureRestAssured())
+                .header("Authorization", authenticator.getAuthorization() + authenticator.getToken(contract.get()))
+                .contentType("application/json")
+                .and()
+                .body(body)
+                .when()
+                .patch(baseUrl + url)
+                .then()
+                .extract().response();
 
-            Response resp = requestSupplier.get();
-            if (resp.getStatusCode() == 401)
-                resp = executeWithRetry(requestSupplier);
+        Response resp = requestSupplier.get();
+        if (resp.getStatusCode() == 401)
+            resp = executeWithRetry(requestSupplier);
 
-            response.set(resp);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        response.set(resp);
+
         return this;
     }
 
     public ApiWorker delete(String url) {
-        try {
-            log.info("DELETE {}{}", baseUrl, url);
-            Supplier<Response> requestSupplier = () -> given()
-                    .filter(new AllureRestAssured())
-                    .header("Authorization", authenticator.getAuthorization() + authenticator.getToken(contract.get()))
-                    .when()
-                    .delete(baseUrl + url)
-                    .then()
-                    .extract().response();
+        log.info("DELETE {}{}", baseUrl, url);
+        Supplier<Response> requestSupplier = () -> given()
+                .filter(new AllureRestAssured())
+                .header("Authorization", authenticator.getAuthorization() + authenticator.getToken(contract.get()))
+                .when()
+                .delete(baseUrl + url)
+                .then()
+                .extract().response();
 
-            Response resp = requestSupplier.get();
-            if (resp.getStatusCode() == 401)
-                resp = executeWithRetry(requestSupplier);
+        Response resp = requestSupplier.get();
+        if (resp.getStatusCode() == 401)
+            resp = executeWithRetry(requestSupplier);
 
-            response.set(resp);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        response.set(resp);
+
         return this;
     }
 
