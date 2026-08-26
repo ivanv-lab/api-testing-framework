@@ -30,9 +30,9 @@ public class BasicApiAuthenticator implements IApiAuthenticator {
     public String getToken(AuthContract authContract) {
         if(!tokenMap.containsKey(authContract)) {
             String tempToken = null;
-            String url = baseUrl + "/" + authContract.getAPIs().getApiName() + "/auth";
+            String url = baseUrl + "/" + authContract.getApi().getApiName() + "/auth";
 
-            if (authContract.getAPIs().equals(APIs.BROKER_API)) {
+            if (authContract.getApi().equals(Api.BROKER_API)) {
                 String toEncode = authContract.getLogin() + ":" + authContract.getPassword();
                 tempToken = "Basic " + Base64.getEncoder()
                         .encodeToString(toEncode.getBytes(StandardCharsets.UTF_8));

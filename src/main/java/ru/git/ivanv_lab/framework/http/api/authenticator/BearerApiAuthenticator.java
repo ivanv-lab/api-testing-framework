@@ -33,7 +33,7 @@ public class BearerApiAuthenticator implements IApiAuthenticator{
         if(!tokenMap.containsKey(authContract)) {
             String tempToken = null;
 
-            if (authContract.getAPIs().equals(APIs.BROKER_API)) {
+            if (authContract.getApi().equals(Api.BROKER_API)) {
                 String toEncode = authContract.getLogin() + ":" + authContract.getPassword();
                 tempToken = "Basic " + Base64.getEncoder()
                         .encodeToString(toEncode.getBytes(StandardCharsets.UTF_8));
@@ -44,7 +44,7 @@ public class BearerApiAuthenticator implements IApiAuthenticator{
                         .filter(new AllureRestAssured())
                         .contentType(ContentType.URLENC)
                         .formParam("grant_type", "password")
-                        .formParam("client_id", authContract.getAPIs())
+                        .formParam("client_id", authContract.getApi())
                         .formParam("password", authContract.getPassword())
                         .formParam("username", authContract.getPassword())
                         .formParam("scope", "openid")

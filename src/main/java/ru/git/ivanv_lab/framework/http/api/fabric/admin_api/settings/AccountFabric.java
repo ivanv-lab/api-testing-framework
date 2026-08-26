@@ -2,7 +2,7 @@ package ru.git.ivanv_lab.framework.http.api.fabric.admin_api.settings;
 
 import ru.git.ivanv_lab.framework.data.PropertiesHandler;
 import ru.git.ivanv_lab.framework.http.api.ApiWorker;
-import ru.git.ivanv_lab.framework.http.api.authenticator.APIs;
+import ru.git.ivanv_lab.framework.http.api.authenticator.Api;
 import ru.git.ivanv_lab.framework.http.api.authenticator.AuthContract;
 import ru.git.ivanv_lab.framework.json.contract_validator.core.JsonContractWorker;
 import ru.git.ivanv_lab.framework.json.contract_validator.exceptions.JsonContractException;
@@ -21,7 +21,7 @@ public class AccountFabric {
     private final JsonContractWorker<AccountGet> accountWorker
             = new JsonContractWorker<>(AccountGet.class);
     private final ApiWorker apiWorker = new ApiWorker(PropertiesHandler.baseUrl,
-            new AuthContract(APIs.ADMIN_CONSOLE_API, PropertiesHandler.adminLogin, PropertiesHandler.adminPassword));
+            new AuthContract(Api.ADMIN_CONSOLE_API, PropertiesHandler.adminLogin, PropertiesHandler.adminPassword));
 
     public List<AccountListGet> getAllAccounts(){
         return getAllAccountsByFilter(null);

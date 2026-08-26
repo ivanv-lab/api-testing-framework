@@ -1,6 +1,6 @@
 package ru.git.ivanv_lab.framework.http.api.authenticator;
 
-public enum APIs {
+public enum Api {
     BROKER_API("broker-api"),
     ADMIN_CONSOLE_API("acapi"),
     LK_API("lk-api"),
@@ -10,7 +10,7 @@ public enum APIs {
 
     private String apiName;
 
-    APIs(String apiName){
+    Api(String apiName){
         this.apiName = apiName;
     }
 
