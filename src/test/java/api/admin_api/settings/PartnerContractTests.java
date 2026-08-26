@@ -21,12 +21,12 @@ import static org.junit.jupiter.api.Assertions.*;
 @Tag("acapi-settings-partners")
 public class PartnerContractTests extends BaseApiTests {
 
-    private final PartnerFabric partnerFabric = new PartnerFabric();
+    private final PartnerFabric partnerFabric = new PartnerFabric(adminConsoleApiWorker.get());
 
     @DisplayName("Контракт: пустой список клиентов")
     @Test
     void contractEmptyListOfPartners() {
-        assertEquals(List.of() ,partnerFabric.getAllPartners(), "Ожидалось, что массив клиентов будет пуст");
+        assertEquals(List.of() ,partnerFabric.getAll(), "Ожидалось, что массив клиентов будет пуст");
     }
 
     @DisplayName("Контракт: заполненный список клиентов")
@@ -34,8 +34,8 @@ public class PartnerContractTests extends BaseApiTests {
     void contractFullListOfPartners() {
         createPartners(partnersToCreate());
         try {
-            assertNotNull(partnerFabric.getAllPartners(), "Ожидалось, что массив клиентов не будет пуст");
-            assertTrue(partnerFabric.getAllPartners().size() >= 4);
+            assertNotNull(partnerFabric.getAll(), "Ожидалось, что массив клиентов не будет пуст");
+            assertTrue(partnerFabric.getAll().size() >= 4);
         } finally {
             deletePartners(partnersToCreate());
         }
@@ -63,13 +63,13 @@ public class PartnerContractTests extends BaseApiTests {
         );
 
         try {
-            List<PartnerListGet> actuals = partnerFabric.getAllPartnersByFilter("?id=" + findingId);
+            List<PartnerListGet> actuals = partnerFabric.getAllByFilter("?id=" + findingId);
             assertEquals(1, actuals.size());
 
             JsonContractWorker.assertContract(actuals.get(0), expected);
         } finally {
             deletePartners(partnersToCreate());
-            partnerFabric.deletePartnerById(findingId);
+            partnerFabric.deleteById(findingId);
         }
     }
 
@@ -95,13 +95,13 @@ public class PartnerContractTests extends BaseApiTests {
         );
 
         try {
-            List<PartnerListGet> actuals = partnerFabric.getAllPartnersByFilter("?name=CONTRACT_FILTER_BY_NAME");
+            List<PartnerListGet> actuals = partnerFabric.getAllByFilter("?name=CONTRACT_FILTER_BY_NAME");
             assertEquals(1, actuals.size());
 
             JsonContractWorker.assertContract(actuals.get(0), expected);
         } finally {
             deletePartners(partnersToCreate());
-            partnerFabric.deletePartnerById(findingId);
+            partnerFabric.deleteById(findingId);
         }
     }
 
@@ -127,13 +127,13 @@ public class PartnerContractTests extends BaseApiTests {
         );
 
         try {
-            List<PartnerListGet> actuals = partnerFabric.getAllPartnersByFilter("?transports=Email");
+            List<PartnerListGet> actuals = partnerFabric.getAllByFilter("?transports=Email");
             assertEquals(1, actuals.size());
 
             JsonContractWorker.assertContract(actuals.get(0), expected);
         } finally {
             deletePartners(partnersToCreate());
-            partnerFabric.deletePartnerById(findingId);
+            partnerFabric.deleteById(findingId);
         }
     }
 
@@ -159,13 +159,13 @@ public class PartnerContractTests extends BaseApiTests {
         );
 
         try {
-            List<PartnerListGet> actuals = partnerFabric.getAllPartnersByFilter("?status=0");
+            List<PartnerListGet> actuals = partnerFabric.getAllByFilter("?status=0");
             assertEquals(1, actuals.size());
 
             JsonContractWorker.assertContract(actuals.get(0), expected);
         } finally {
             deletePartners(partnersToCreate());
-            partnerFabric.deletePartnerById(findingId);
+            partnerFabric.deleteById(findingId);
         }
     }
 
@@ -191,13 +191,13 @@ public class PartnerContractTests extends BaseApiTests {
         );
 
         try {
-            List<PartnerListGet> actuals = partnerFabric.getAllPartnersByFilter("?prepaid=false");
+            List<PartnerListGet> actuals = partnerFabric.getAllByFilter("?prepaid=false");
             assertEquals(1, actuals.size());
 
             JsonContractWorker.assertContract(actuals.get(0), expected);
         } finally {
             deletePartners(partnersToCreate());
-            partnerFabric.deletePartnerById(findingId);
+            partnerFabric.deleteById(findingId);
         }
     }
 
@@ -222,10 +222,10 @@ public class PartnerContractTests extends BaseApiTests {
         );
 
         try {
-            PartnerGet actual = partnerFabric.getPartnerById(findingId);
+            PartnerGet actual = partnerFabric.getById(findingId);
             JsonContractWorker.assertContract(actual, expected);
         } finally {
-            partnerFabric.deletePartnerById(findingId);
+            partnerFabric.deleteById(findingId);
         }
     }
 
@@ -275,10 +275,10 @@ public class PartnerContractTests extends BaseApiTests {
         );
 
         try {
-            PartnerGet actual = partnerFabric.getPartnerById(findingId);
+            PartnerGet actual = partnerFabric.getById(findingId);
             JsonContractWorker.assertContract(actual, expected);
         } finally {
-            partnerFabric.deletePartnerById(findingId);
+            partnerFabric.deleteById(findingId);
         }
     }
 
@@ -311,7 +311,7 @@ public class PartnerContractTests extends BaseApiTests {
             PartnerGet actual = partnerFabric.updatePartnerById(findingId, putContract);
             JsonContractWorker.assertContract(actual, expected);
         } finally {
-            partnerFabric.deletePartnerById(findingId);
+            partnerFabric.deleteById(findingId);
         }
     }
 
@@ -320,13 +320,13 @@ public class PartnerContractTests extends BaseApiTests {
     @DisplayName("Контракт: фильтрация по несуществующему параметру")
     @Test
     void contractFilterByUnexpectedParameter() {
-        assertEquals(List.of(), partnerFabric.getAllPartnersByFilter("?unexpected=parameter"));
+        assertEquals(List.of(), partnerFabric.getAllByFilter("?unexpected=parameter"));
     }
 
     @DisplayName("Контракт: фильтрация по несуществующему значению параметра")
     @Test
     void contractFilterByUnexpectedValueOfParameter() {
-        assertEquals(List.of(), partnerFabric.getAllPartnersByFilter("?transports=MMS"));
+        assertEquals(List.of(), partnerFabric.getAllByFilter("?transports=MMS"));
     }
 
     @DisplayName("Контракт: создание клиента без обязательного параметра")
@@ -407,7 +407,7 @@ public class PartnerContractTests extends BaseApiTests {
 
     private void deletePartners(PartnerPost[] partnerPosts) {
         for (PartnerPost partnerPost : partnerPosts) {
-            partnerFabric.deletePartnerByName(partnerPost.getName());
+            partnerFabric.deleteByName(partnerPost.getName());
         }
     }
 }

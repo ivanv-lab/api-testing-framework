@@ -11,6 +11,7 @@ import ru.git.ivanv_lab.framework.http.api.authenticator.BearerApiAuthenticator;
 import ru.git.ivanv_lab.framework.http.api.authenticator.IApiAuthenticator;
 
 import java.util.function.Supplier;
+import java.util.regex.Pattern;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
