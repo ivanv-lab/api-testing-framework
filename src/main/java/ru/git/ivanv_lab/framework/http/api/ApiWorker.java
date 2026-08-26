@@ -73,19 +73,6 @@ public class ApiWorker {
         throw new RuntimeException("Ошибка авторизации");
     }
 
-    public ApiWorker get(String url, String body) {
-        log.info("GET {}{}\n{}",baseUrl,url,body);
-        Response resp = given()
-                .filter(new AllureRestAssured())
-                .header("Authorization", authenticator.getAuthorization() + authenticator.getToken(contract.get()))
-                .get(baseUrl + url)
-                .then()
-                .extract().response();
-        resp.body().print();
-        response.set(resp);
-        return this;
-    }
-
     public ApiWorker put(String url, String body) {
         try {
             log.info("PUT {}{}\n{}",baseUrl,url,body);
