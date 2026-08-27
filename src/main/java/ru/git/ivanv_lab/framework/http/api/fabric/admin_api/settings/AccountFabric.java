@@ -14,8 +14,12 @@ public class AccountFabric extends Fabric<AccountListGet, AccountGet> {
                 AccountListGet::getId, AccountListGet::getName);
     }
 
-    public int createAccount(AccountPost post){
-        return create(post, post.getName());
+    public int createAccountReturnId(AccountPost post){
+        return createReturnId(post, post.getName());
+    }
+
+    public void createAccount(AccountPost post){
+        create(post);
     }
 
     public AccountGet updateAccountById(int id, AccountPut put){

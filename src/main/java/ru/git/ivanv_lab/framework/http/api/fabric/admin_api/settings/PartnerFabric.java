@@ -14,8 +14,12 @@ public class PartnerFabric extends Fabric<PartnerListGet, PartnerGet> {
                 PartnerListGet::getId, PartnerListGet::getName);
     }
 
-    public int createPartner(PartnerPost post){
-        return create(post, post.getName());
+    public int createPartnerReturnId(PartnerPost post){
+        return createReturnId(post, post.getName());
+    }
+
+    public void createPartner(PartnerPost post){
+        create(post);
     }
 
     public PartnerGet updatePartnerById(int id, PartnerPut put){

@@ -45,7 +45,7 @@ public class PartnerContractTests extends BaseApiTests {
     @Test
     void contractFilterById() {
         createPartners(partnersToCreate());
-        int findingId = partnerFabric.createPartner(new PartnerPost.Builder()
+        int findingId = partnerFabric.createPartnerReturnId(new PartnerPost.Builder()
                 .withName("CONTRACT_FILTER_BY_ID")
                 .withPrepaid(true)
                 .withTransports(new PartnerTransport[]{
@@ -77,7 +77,7 @@ public class PartnerContractTests extends BaseApiTests {
     @Test
     void contractFilterByName() {
         createPartners(partnersToCreate());
-        int findingId = partnerFabric.createPartner(new PartnerPost.Builder()
+        int findingId = partnerFabric.createPartnerReturnId(new PartnerPost.Builder()
                 .withName("CONTRACT_FILTER_BY_NAME")
                 .withPrepaid(true)
                 .withTransports(new PartnerTransport[]{
@@ -110,7 +110,7 @@ public class PartnerContractTests extends BaseApiTests {
     void contractFilterByTransports() {
         createPartners(partnersToCreate());
 
-        int findingId = partnerFabric.createPartner(new PartnerPost.Builder()
+        int findingId = partnerFabric.createPartnerReturnId(new PartnerPost.Builder()
                 .withName("CONTRACT_FILTER_BY_TRANSPORTS")
                 .withPrepaid(true)
                 .withTransports(new PartnerTransport[]{
@@ -142,7 +142,7 @@ public class PartnerContractTests extends BaseApiTests {
     @Test
     void contractFilterByStatus() {
         createPartners(partnersToCreate());
-        int findingId = partnerFabric.createPartner(new PartnerPost.Builder()
+        int findingId = partnerFabric.createPartnerReturnId(new PartnerPost.Builder()
                 .withName("CONTRACT_FILTER_BY_STATUS")
                 .withPrepaid(true)
                 .withTransports(new PartnerTransport[]{
@@ -174,7 +174,7 @@ public class PartnerContractTests extends BaseApiTests {
     @Test
     void contractFilterByPrepaid() {
         createPartners(partnersToCreate());
-        int findingId = partnerFabric.createPartner(new PartnerPost.Builder()
+        int findingId = partnerFabric.createPartnerReturnId(new PartnerPost.Builder()
                 .withName("CONTRACT_FILTER_BY_PREPAID")
                 .withPrepaid(false)
                 .withTransports(new PartnerTransport[]{
@@ -213,7 +213,7 @@ public class PartnerContractTests extends BaseApiTests {
                         new PartnerTransport.Builder().withTransport(Transport.VIBER).build()
                 })
                 .build();
-        int findingId = partnerFabric.createPartner(partnerPost);
+        int findingId = partnerFabric.createPartnerReturnId(partnerPost);
 
         PartnerGet expected = new PartnerGet(
                 partnerPost.getName(),
@@ -266,7 +266,7 @@ public class PartnerContractTests extends BaseApiTests {
                                 .withModeration(true).build(),
                 })
                 .build();
-        int findingId = partnerFabric.createPartner(partnerPost);
+        int findingId = partnerFabric.createPartnerReturnId(partnerPost);
 
         PartnerGet expected = new PartnerGet(
                 partnerPost.getName(),
@@ -294,7 +294,7 @@ public class PartnerContractTests extends BaseApiTests {
                         new PartnerTransport.Builder().withTransport(Transport.VIBER).build()
                 })
                 .build();
-        int findingId = partnerFabric.createPartner(partnerPost);
+        int findingId = partnerFabric.createPartnerReturnId(partnerPost);
 
         PartnerPut putContract = new PartnerPut(
                 "CONTRACT_UPDATED", new PartnerTransport[]{

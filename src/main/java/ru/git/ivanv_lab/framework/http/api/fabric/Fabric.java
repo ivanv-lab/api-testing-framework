@@ -59,8 +59,12 @@ public class Fabric <LIST, DETAIL> {
         return idExtractor.apply(found);
     }
 
-    public int create(Object postContract, String createdName) {
+    public void create(Object postContract){
         apiWorker.post(basePath, JsonMapperHolder.convertContractToString(postContract)).code(200);
+    }
+
+    public int createReturnId(Object postContract, String createdName) {
+        create(postContract);
         return getIdByName(createdName);
     }
 
