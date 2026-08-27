@@ -7,6 +7,7 @@ import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
 import ru.git.ivanv_lab.framework.http.api.fabric.admin_api.settings.PartnerFabric;
 import ru.git.ivanv_lab.framework.http.api.fabric.general.Transport;
+import ru.git.ivanv_lab.framework.http.api.fabric.general.TransportFabric;
 import ru.git.ivanv_lab.framework.json.contract_validator.core.JsonContractWorker;
 import ru.git.ivanv_lab.framework.json.contract_validator.util.JsonMapperHolder;
 import ru.git.ivanv_lab.framework.json.contracts.admin_api.partners.*;
@@ -26,7 +27,7 @@ public class PartnerContractTests extends BaseApiTests {
     @DisplayName("Контракт: пустой список клиентов")
     @Test
     void contractEmptyListOfPartners() {
-        assertEquals(List.of() ,partnerFabric.getAll(), "Ожидалось, что массив клиентов будет пуст");
+        assertEquals(List.of(), partnerFabric.getAll(), "Ожидалось, что массив клиентов будет пуст");
     }
 
     @DisplayName("Контракт: заполненный список клиентов")
@@ -49,7 +50,7 @@ public class PartnerContractTests extends BaseApiTests {
                 .withName("CONTRACT_FILTER_BY_ID")
                 .withPrepaid(true)
                 .withTransports(new PartnerTransport[]{
-                        new PartnerTransport.Builder().withTransport(Transport.SMS).build()
+                        new PartnerTransport.Builder().withTransport(Transport.SMS, transportFabric).build()
                 })
                 .withStatus(1)
                 .build());
@@ -81,7 +82,7 @@ public class PartnerContractTests extends BaseApiTests {
                 .withName("CONTRACT_FILTER_BY_NAME")
                 .withPrepaid(true)
                 .withTransports(new PartnerTransport[]{
-                        new PartnerTransport.Builder().withTransport(Transport.SMS).build()
+                        new PartnerTransport.Builder().withTransport(Transport.SMS, transportFabric).build()
                 })
                 .withStatus(1)
                 .build());
@@ -114,7 +115,7 @@ public class PartnerContractTests extends BaseApiTests {
                 .withName("CONTRACT_FILTER_BY_TRANSPORTS")
                 .withPrepaid(true)
                 .withTransports(new PartnerTransport[]{
-                        new PartnerTransport.Builder().withTransport(Transport.EMAIL).build()
+                        new PartnerTransport.Builder().withTransport(Transport.EMAIL, transportFabric).build()
                 })
                 .withStatus(1)
                 .build());
@@ -146,7 +147,7 @@ public class PartnerContractTests extends BaseApiTests {
                 .withName("CONTRACT_FILTER_BY_STATUS")
                 .withPrepaid(true)
                 .withTransports(new PartnerTransport[]{
-                        new PartnerTransport.Builder().withTransport(Transport.EMAIL).build()
+                        new PartnerTransport.Builder().withTransport(Transport.EMAIL, transportFabric).build()
                 })
                 .withStatus(0)
                 .build());
@@ -178,7 +179,7 @@ public class PartnerContractTests extends BaseApiTests {
                 .withName("CONTRACT_FILTER_BY_PREPAID")
                 .withPrepaid(false)
                 .withTransports(new PartnerTransport[]{
-                        new PartnerTransport.Builder().withTransport(Transport.EMAIL).build()
+                        new PartnerTransport.Builder().withTransport(Transport.EMAIL, transportFabric).build()
                 })
                 .withStatus(1)
                 .build());
@@ -210,7 +211,7 @@ public class PartnerContractTests extends BaseApiTests {
                 .withStatus(1)
                 .withPrepaid(false)
                 .withTransports(new PartnerTransport[]{
-                        new PartnerTransport.Builder().withTransport(Transport.VIBER).build()
+                        new PartnerTransport.Builder().withTransport(Transport.VIBER, transportFabric).build()
                 })
                 .build();
         int findingId = partnerFabric.createPartnerReturnId(partnerPost);
@@ -238,30 +239,30 @@ public class PartnerContractTests extends BaseApiTests {
                 .withStatus(1)
                 .withPrepaid(false)
                 .withTransports(new PartnerTransport[]{
-                        new PartnerTransport.Builder().withTransport(Transport.SMS)
+                        new PartnerTransport.Builder().withTransport(Transport.SMS, transportFabric)
                                 .withMultisignature(true).withTemplateOnly(true)
                                 .withModeration(true).build(),
-                        new PartnerTransport.Builder().withTransport(Transport.CALL)
+                        new PartnerTransport.Builder().withTransport(Transport.CALL, transportFabric)
                                 .withMultisignature(true).withTemplateOnly(true)
                                 .withModeration(true).build(),
-                        new PartnerTransport.Builder().withTransport(Transport.EMAIL)
+                        new PartnerTransport.Builder().withTransport(Transport.EMAIL, transportFabric)
                                 .withMultisignature(true).withTemplateOnly(true)
                                 .withModeration(true).build(),
-                        new PartnerTransport.Builder().withTransport(Transport.PUSH)
+                        new PartnerTransport.Builder().withTransport(Transport.PUSH, transportFabric)
                                 .withTemplateOnly(true).withModeration(true).build(),
-                        new PartnerTransport.Builder().withTransport(Transport.VIBER)
+                        new PartnerTransport.Builder().withTransport(Transport.VIBER, transportFabric)
                                 .withMultisignature(true).withTemplateOnly(true)
                                 .withModeration(true).build(),
-                        new PartnerTransport.Builder().withTransport(Transport.WHATSAPP)
+                        new PartnerTransport.Builder().withTransport(Transport.WHATSAPP, transportFabric)
                                 .withMultisignature(true).withTemplateOnly(true)
                                 .withModeration(true).build(),
-                        new PartnerTransport.Builder().withTransport(Transport.CUSTOM)
+                        new PartnerTransport.Builder().withTransport(Transport.CUSTOM, transportFabric)
                                 .withMultisignature(true).withTemplateOnly(true)
                                 .withModeration(true).build(),
-                        new PartnerTransport.Builder().withTransport(Transport.MAIL_NOTIFY)
+                        new PartnerTransport.Builder().withTransport(Transport.MAIL_NOTIFY, transportFabric)
                                 .withTemplateOnly(true)
                                 .withModeration(true).build(),
-                        new PartnerTransport.Builder().withTransport(Transport.TELEGRAM)
+                        new PartnerTransport.Builder().withTransport(Transport.TELEGRAM, transportFabric)
                                 .withTemplateOnly(true)
                                 .withModeration(true).build(),
                 })
@@ -291,7 +292,7 @@ public class PartnerContractTests extends BaseApiTests {
                 .withStatus(1)
                 .withPrepaid(false)
                 .withTransports(new PartnerTransport[]{
-                        new PartnerTransport.Builder().withTransport(Transport.VIBER).build()
+                        new PartnerTransport.Builder().withTransport(Transport.VIBER, transportFabric).build()
                 })
                 .build();
         int findingId = partnerFabric.createPartnerReturnId(partnerPost);
@@ -351,7 +352,7 @@ public class PartnerContractTests extends BaseApiTests {
         PartnerPost contract = new PartnerPost(
                 "CONTRACT_UNEXPECTED_PARAM",
                 new PartnerTransport[]{
-                        new PartnerTransport(1,true,true,true)
+                        new PartnerTransport(1, true, true, true)
                 },
                 true,
                 2
@@ -369,7 +370,7 @@ public class PartnerContractTests extends BaseApiTests {
                         .withPrepaid(true)
                         .withStatus(1)
                         .withTransports(new PartnerTransport[]{
-                                new PartnerTransport.Builder().withTransport(Transport.SMS).build()
+                                new PartnerTransport.Builder().withTransport(Transport.SMS, transportFabric).build()
                         })
                         .build(),
                 new PartnerPost.Builder()
@@ -377,8 +378,8 @@ public class PartnerContractTests extends BaseApiTests {
                         .withPrepaid(true)
                         .withStatus(1)
                         .withTransports(new PartnerTransport[]{
-                                new PartnerTransport.Builder().withTransport(Transport.VIBER).build(),
-                                new PartnerTransport.Builder().withTransport(Transport.SMS).build()
+                                new PartnerTransport.Builder().withTransport(Transport.VIBER, transportFabric).build(),
+                                new PartnerTransport.Builder().withTransport(Transport.SMS, transportFabric).build()
                         })
                         .build(),
                 new PartnerPost.Builder()
@@ -386,7 +387,7 @@ public class PartnerContractTests extends BaseApiTests {
                         .withPrepaid(true)
                         .withStatus(1)
                         .withTransports(new PartnerTransport[]{
-                                new PartnerTransport.Builder().withTransport(Transport.PUSH).build()
+                                new PartnerTransport.Builder().withTransport(Transport.PUSH, transportFabric).build()
                         })
                         .build(),
                 new PartnerPost.Builder()
@@ -394,7 +395,7 @@ public class PartnerContractTests extends BaseApiTests {
                         .withPrepaid(true)
                         .withStatus(1)
                         .withTransports(new PartnerTransport[]{
-                                new PartnerTransport.Builder().withTransport(Transport.CALL).build()
+                                new PartnerTransport.Builder().withTransport(Transport.CALL, transportFabric).build()
                         })
                         .build()
         };

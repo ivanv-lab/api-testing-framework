@@ -16,11 +16,14 @@ public class TransportFabric {
 
     private final JsonContractWorker<Transport> transportListWorker
             = new JsonContractWorker<>(Transport.class);
-    private final ApiWorker apiWorker = new ApiWorker(PropertiesHandler.baseUrl,
-            new AuthContract(Api.ADMIN_CONSOLE_API, PropertiesHandler.adminLogin, PropertiesHandler.adminPassword));
+    private final ApiWorker apiWorker;
 
     private static final Set<Transport> transports = ConcurrentHashMap.newKeySet();
     private static volatile boolean loaded = false;
+
+    public TransportFabric(ApiWorker apiWorker){
+        this.apiWorker = apiWorker;
+    }
 
     public List<Transport> getAllTransports() {
         return List.copyOf(uploadTransportsSynchronized());

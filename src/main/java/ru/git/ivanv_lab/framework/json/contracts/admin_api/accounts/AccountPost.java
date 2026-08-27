@@ -113,14 +113,14 @@ public class AccountPost {
         }
 
         public Builder withSmppProtocol(String maxThroughput, boolean immediateResponseNeeded,
-                                        Transport transport, String additionalProcessingRule) {
+                                        Transport transport, String additionalProcessingRule,
+                                        TransportFabric fabric) {
             this.maxThroughput = maxThroughput;
             this.immediateResponseNeeded = immediateResponseNeeded ? 1 : 0;
             this.protocolId = 2;
 
             if (transport != null) {
-                final TransportFabric transportFabric = new TransportFabric();
-                this.transportId = transportFabric.getTransportByName(transport.getTransportName())
+                this.transportId = fabric.getTransportByName(transport.getTransportName())
                         .getId();
             } else {
                 this.additionalProcessingRule = additionalProcessingRule;

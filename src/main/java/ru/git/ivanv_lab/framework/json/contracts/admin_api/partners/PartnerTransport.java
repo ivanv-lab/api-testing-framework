@@ -33,8 +33,7 @@ public class PartnerTransport {
         private boolean onModeration;
         private boolean templateOnly;
 
-        public Builder withTransport(Transport transport){
-            final TransportFabric fabric=new TransportFabric();
+        public Builder withTransport(Transport transport, TransportFabric fabric){
             this.id = fabric.getTransportByName(transport.getTransportName()).getId();
             return this;
         }
