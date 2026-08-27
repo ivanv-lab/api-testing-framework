@@ -109,6 +109,7 @@ public class PartnerContractTests extends BaseApiTests {
     @Test
     void contractFilterByTransports() {
         createPartners(partnersToCreate());
+
         int findingId = partnerFabric.createPartner(new PartnerPost.Builder()
                 .withName("CONTRACT_FILTER_BY_TRANSPORTS")
                 .withPrepaid(true)
