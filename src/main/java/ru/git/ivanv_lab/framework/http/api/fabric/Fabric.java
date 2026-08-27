@@ -35,7 +35,7 @@ public class Fabric <LIST, DETAIL> {
     }
 
     public List<LIST> getAllByFilter(String additionalUrl){
-        String url = basePath + additionalUrl;
+        String url = basePath + (additionalUrl!=null?additionalUrl:"");
         return listWorker.getContractArrayFromJsonArray(
                 JsonMapperHolder.convertStringToJNode(
                         apiWorker.get(url).code(200).getResponse().asString()

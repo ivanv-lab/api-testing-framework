@@ -92,16 +92,8 @@ public class AccountPost {
             return this;
         }
 
-        public Builder withPartner(String partnerName) {
-            final PartnerFabric partnerFabric = new PartnerFabric();
-
-            this.partnerId = partnerFabric.getAllPartners()
-                    .stream()
-                    .filter(partnerListGet -> partnerListGet.getName().equals(partnerName))
-                    .findFirst()
-                    .orElseThrow(() -> new JsonContractException("Не удалось найти клиента с именем " + partnerName))
-                    .getId();
-
+        public Builder withPartner(int partnerId) {
+            this.partnerId = partnerId;
             return this;
         }
 
