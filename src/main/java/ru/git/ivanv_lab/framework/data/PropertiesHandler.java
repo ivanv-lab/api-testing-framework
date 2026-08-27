@@ -1,6 +1,5 @@
 package ru.git.ivanv_lab.framework.data;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -10,7 +9,7 @@ public class PropertiesHandler {
     private static final Properties properties=new Properties();
 
     static {
-        try(InputStream inputStream = new FileInputStream("src/main/resources/project.properties")){
+        try(InputStream inputStream = PropertiesHandler.class.getClassLoader().getResourceAsStream("project.properties")){
             properties.load(inputStream);
         } catch (IOException e) {
             throw new RuntimeException("Ошибка при получении свойств: "+e.getMessage());
